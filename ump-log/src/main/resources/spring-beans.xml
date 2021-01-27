@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!--钉钉群发消息url map -->
+    <util:map id="dingdingSendUrlMap" key-type="java.lang.Integer" map-class="java.util.HashMap"
+              value-type="java.lang.String">
+        <entry key="1" value="${dingding.invoice-wirte-kingdee.send.url}"/>
+    </util:map>
+
+    <bean id="redis" class="com.jbs.ump.log.entity.Redis">
+        <property name="maxIdle" value="${redis.pool.maxIdle}"/>
+        <property name="maxTotal" value="${redis.pool.maxIdle}"/>
+        <property name="testOnBorrow" value="${redis.pool.testOnBorrow}"/>
+        <property name="testOnReturn" value="${redis.pool.testOnReturn}"/>
+        <property name="timeout" value="${redis.pool.timeout}"/>
+        <property name="ip" value="${redis.host}"/>
+        <property name="password" value="${redis.password}"/>
+        <property name="port" value="${redis.port}"/>
+    </bean>
+    <!--创建hermesUtil-->
+    <bean id="redisUtil" class="com.jbs.ump.log.utils.RedisUtil">
+        <constructor-arg name="redis" ref="redis"/>
+    </bean>
+
+</beans>
